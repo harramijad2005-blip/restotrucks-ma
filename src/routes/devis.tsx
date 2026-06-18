@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, Send, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/devis")({
   head: () => ({
@@ -81,6 +81,17 @@ Message: ${form.get("message")}`;
                 <Send className="h-4 w-4" /> Envoyer ma demande
               </button>
               <p className="md:col-span-2 text-xs text-muted-foreground text-center">Vos informations restent confidentielles et ne sont utilisées que pour répondre à votre demande.</p>
+              <div className="md:col-span-2 mt-4 pt-6 border-t border-border text-center">
+                <p className="text-sm text-muted-foreground mb-3">Vous préférez envoyer votre demande par WhatsApp ?</p>
+                <a
+                  href="https://wa.me/212661309931?text=Bonjour%20RESTO%20TRUCKS%2C%0A%0AJe%20souhaite%20obtenir%20un%20devis%20pour%20la%20restauration%20collective.%0A%0AVoici%20mes%20informations%20%3A%0A-%20Entreprise%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Responsable%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20T%C3%A9l%C3%A9phone%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Email%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Ville%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Nombre%20de%20repas%20par%20jour%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Type%20de%20prestation%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A-%20Message%20%3A%20%5B%C3%A0%20compl%C3%A9ter%5D%0A%0AMerci%20de%20me%20contacter.%0A%0A---%0ARESTO%20TRUCKS%0A%F0%9F%93%9E%2006%2061%2030%2099%2031%0A%F0%9F%93%A7%20restotrucks%40gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-[#25D366] text-white font-semibold hover:opacity-95 transition"
+                >
+                  <MessageCircle className="h-5 w-5" /> Envoyer sur WhatsApp
+                </a>
+              </div>
             </form>
           )}
         </div>
