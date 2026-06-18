@@ -59,6 +59,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "NLAogWSyR7msqUwtY1OTgMJeb8KHiqTHx4cw2TQnIHI" },
       { title: "RESTO TRUCKS — Restauration collective au Maroc" },
       { name: "description", content: "RESTO TRUCKS, leader de la restauration collective au Maroc : cantines scolaires, sites industriels, bases-vie, marchés publics. Plus de 10 ans d'excellence." },
       { name: "author", content: "RESTO TRUCKS" },
