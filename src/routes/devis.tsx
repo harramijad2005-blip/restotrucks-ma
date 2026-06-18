@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Send } from "lucide-react";
+import { CheckCircle2, Send, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/devis")({
   head: () => ({
