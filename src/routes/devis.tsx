@@ -1,7 +1,114 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Send, MessageCircle } from "lucide-react";
+import { CheckCircle2, Send, MessageCircle, Download } from "lucide-react";
+import jsPDF from "jspdf";
+
+type DevisData = {
+  entreprise: string;
+  responsable: string;
+  telephone: string;
+  email: string;
+  ville: string;
+  repas: string;
+  prestation: string;
+  message: string;
+  reference: string;
+  date: string;
+};
+
+function generatePdf(d: DevisData) {
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const W = doc.internal.pageSize.getWidth();
+  const M = 48;
+
+  // Header band
+  doc.setFillColor(15, 32, 64);
+  doc.rect(0, 0, W, 110, "F");
+  doc.setFillColor(34, 160, 90);
+  doc.rect(0, 110, W, 6, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text("RESTO TRUCKS", M, 50);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text("Restauration collective au Maroc", M, 68);
+  doc.text("Plus de 10 ans d'excellence", M, 82);
+
+  doc.setFontSize(9);
+  const right = W - M;
+  doc.text("06 61 30 99 31", right, 50, { align: "right" });
+  doc.text("restotrucks@gmail.com", right, 64, { align: "right" });
+  doc.text("Ouled Mrah, Ben Ahmed", right, 78, { align: "right" });
+
+  // Title
+  let y = 160;
+  doc.setTextColor(15, 32, 64);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Recapitulatif de demande de devis", M, y);
+  y += 22;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(90, 90, 90);
+  doc.text(`Reference : ${d.reference}`, M, y);
+  doc.text(`Date : ${d.date}`, right, y, { align: "right" });
+  y += 24;
+
+  // Rows
+  const rows: [string, string][] = [
+    ["Entreprise", d.entreprise],
+    ["Responsable", d.responsable],
+    ["Telephone", d.telephone],
+    ["Email", d.email],
+    ["Ville", d.ville],
+    ["Repas / jour", d.repas],
+    ["Type de prestation", d.prestation],
+  ];
+
+  doc.setDrawColor(225, 230, 240);
+  rows.forEach(([k, v], i) => {
+    if (i % 2 === 0) {
+      doc.setFillColor(246, 249, 252);
+      doc.rect(M, y - 14, W - M * 2, 26, "F");
+    }
+    doc.setTextColor(80, 90, 110);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text(k, M + 10, y + 3);
+    doc.setTextColor(20, 30, 50);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(v || "-"), M + 170, y + 3);
+    y += 26;
+  });
+
+  // Message
+  y += 14;
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 32, 64);
+  doc.text("Message", M, y);
+  y += 14;
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(40, 50, 70);
+  const msg = doc.splitTextToSize(d.message || "(aucun message)", W - M * 2);
+  doc.text(msg, M, y);
+  y += msg.length * 14 + 20;
+
+  // Footer
+  const fy = doc.internal.pageSize.getHeight() - 60;
+  doc.setDrawColor(34, 160, 90);
+  doc.setLineWidth(2);
+  doc.line(M, fy, W - M, fy);
+  doc.setFontSize(9);
+  doc.setTextColor(90, 100, 120);
+  doc.text("RESTO TRUCKS - N 41 Bloc PAM, 1er etage, Ouled Mrah, Ben Ahmed, Maroc", M, fy + 16);
+  doc.text("Tel : 06 61 30 99 31  -  Email : restotrucks@gmail.com  -  restotrucks.ma", M, fy + 30);
+
+  doc.save(`devis-resto-trucks-${d.reference}.pdf`);
+}
+
 
 export const Route = createFileRoute("/devis")({
   head: () => ({
