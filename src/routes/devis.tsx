@@ -131,22 +131,39 @@ const prestations = [
 
 function Devis() {
   const [sent, setSent] = useState(false);
+  const [devisData, setDevisData] = useState<DevisData | null>(null);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const body = `Bonjour,%0A%0ANouvelle demande de devis :%0A
-Entreprise: ${form.get("entreprise")}%0A
-Responsable: ${form.get("responsable")}%0A
-Téléphone: ${form.get("telephone")}%0A
-Email: ${form.get("email")}%0A
-Ville: ${form.get("ville")}%0A
-Repas/jour: ${form.get("repas")}%0A
-Prestation: ${form.get("prestation")}%0A
-Message: ${form.get("message")}`;
-    window.location.href = `mailto:restotrucks@gmail.com?subject=Demande de devis&body=${body}`;
+    const data: DevisData = {
+      entreprise: String(form.get("entreprise") || ""),
+      responsable: String(form.get("responsable") || ""),
+      telephone: String(form.get("telephone") || ""),
+      email: String(form.get("email") || ""),
+      ville: String(form.get("ville") || ""),
+      repas: String(form.get("repas") || ""),
+      prestation: String(form.get("prestation") || ""),
+      message: String(form.get("message") || ""),
+      reference: `RT-${Date.now().toString(36).toUpperCase()}`,
+      date: new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" }),
+    };
+    const body = `Bonjour,%0A%0ANouvelle demande de devis (Ref: ${data.reference}):%0A
+Entreprise: ${data.entreprise}%0A
+Responsable: ${data.responsable}%0A
+Téléphone: ${data.telephone}%0A
+Email: ${data.email}%0A
+Ville: ${data.ville}%0A
+Repas/jour: ${data.repas}%0A
+Prestation: ${data.prestation}%0A
+Message: ${data.message}`;
+    window.location.href = `mailto:restotrucks@gmail.com?subject=Demande de devis ${data.reference}&body=${body}`;
+    setDevisData(data);
     setSent(true);
+    // Auto-download PDF
+    setTimeout(() => generatePdf(data), 300);
   }
+
 
   return (
     <Layout>
