@@ -182,6 +182,19 @@ Message: ${data.message}`;
               <CheckCircle2 className="h-14 w-14 text-green mx-auto" />
               <h2 className="mt-4 font-display text-2xl font-bold text-navy">Merci pour votre demande !</h2>
               <p className="mt-2 text-muted-foreground">Votre email est en cours d'envoi. Nous reviendrons vers vous sous 48h.</p>
+              {devisData && (
+                <>
+                  <p className="mt-4 text-sm text-navy font-semibold">Référence : {devisData.reference}</p>
+                  <button
+                    onClick={() => generatePdf(devisData)}
+                    className="mt-6 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-white font-semibold shadow-soft hover:opacity-95 transition"
+                    style={{ background: "var(--gradient-accent)" }}
+                  >
+                    <Download className="h-5 w-5" /> Télécharger le récapitulatif PDF
+                  </button>
+                  <p className="mt-3 text-xs text-muted-foreground">Le PDF a été téléchargé automatiquement. Cliquez ci-dessus pour le retélécharger.</p>
+                </>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="p-6 md:p-10 rounded-3xl bg-white border border-border shadow-elegant grid gap-5 md:grid-cols-2">
