@@ -99,7 +99,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </footer>
 
       <a
-        href="https://wa.me/212661309931"
+        href="https://wa.me/212661309931?text=Bonjour%2C%20je%20souhaite%20obtenir%20un%20devis%20pour%20la%20restauration%20collective.%0A%0A%2A%20Nom%20de%20l'entreprise%20%3A%20%0A%2A%20Responsable%20%3A%20%0A%2A%20Téléphone%20%3A%20%0A%2A%20Email%20%3A%20%0A%2A%20Ville%20%3A%20%0A%2A%20Nombre%20de%20repas%20par%20jour%20%3A%20%0A%2A%20Type%20de%20prestation%20%3A%20%0A%0A%2A%2ARESTO%20TRUCKS%20%E2%80%94%20restauration%20collective%20Maroc%2A%2A%0A%F0%9F%93%8D%20N%C2%B041%20Bloc%20PAM%201er%20%C3%89tage%2C%20Ouled%20Mrah%2C%20Ben%20Ahmed%2C%20Maroc%0A%F0%9F%93%9E%2006%2061%2030%2099%2031%0A%F0%9F%93%A7%20restotrucks%40gmail.com%0A%F0%9F%8C%90%20https%3A%2F%2Frestotrucks.ma"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Contacter sur WhatsApp"
