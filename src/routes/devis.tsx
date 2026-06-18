@@ -1,7 +1,114 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
 import { useState, type FormEvent } from "react";
-import { CheckCircle2, Send, MessageCircle } from "lucide-react";
+import { CheckCircle2, Send, MessageCircle, Download } from "lucide-react";
+import jsPDF from "jspdf";
+
+type DevisData = {
+  entreprise: string;
+  responsable: string;
+  telephone: string;
+  email: string;
+  ville: string;
+  repas: string;
+  prestation: string;
+  message: string;
+  reference: string;
+  date: string;
+};
+
+function generatePdf(d: DevisData) {
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const W = doc.internal.pageSize.getWidth();
+  const M = 48;
+
+  // Header band
+  doc.setFillColor(15, 32, 64);
+  doc.rect(0, 0, W, 110, "F");
+  doc.setFillColor(34, 160, 90);
+  doc.rect(0, 110, W, 6, "F");
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text("RESTO TRUCKS", M, 50);
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text("Restauration collective au Maroc", M, 68);
+  doc.text("Plus de 10 ans d'excellence", M, 82);
+
+  doc.setFontSize(9);
+  const right = W - M;
+  doc.text("06 61 30 99 31", right, 50, { align: "right" });
+  doc.text("restotrucks@gmail.com", right, 64, { align: "right" });
+  doc.text("Ouled Mrah, Ben Ahmed", right, 78, { align: "right" });
+
+  // Title
+  let y = 160;
+  doc.setTextColor(15, 32, 64);
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(18);
+  doc.text("Recapitulatif de demande de devis", M, y);
+  y += 22;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.setTextColor(90, 90, 90);
+  doc.text(`Reference : ${d.reference}`, M, y);
+  doc.text(`Date : ${d.date}`, right, y, { align: "right" });
+  y += 24;
+
+  // Rows
+  const rows: [string, string][] = [
+    ["Entreprise", d.entreprise],
+    ["Responsable", d.responsable],
+    ["Telephone", d.telephone],
+    ["Email", d.email],
+    ["Ville", d.ville],
+    ["Repas / jour", d.repas],
+    ["Type de prestation", d.prestation],
+  ];
+
+  doc.setDrawColor(225, 230, 240);
+  rows.forEach(([k, v], i) => {
+    if (i % 2 === 0) {
+      doc.setFillColor(246, 249, 252);
+      doc.rect(M, y - 14, W - M * 2, 26, "F");
+    }
+    doc.setTextColor(80, 90, 110);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.text(k, M + 10, y + 3);
+    doc.setTextColor(20, 30, 50);
+    doc.setFont("helvetica", "normal");
+    doc.text(String(v || "-"), M + 170, y + 3);
+    y += 26;
+  });
+
+  // Message
+  y += 14;
+  doc.setFont("helvetica", "bold");
+  doc.setTextColor(15, 32, 64);
+  doc.text("Message", M, y);
+  y += 14;
+  doc.setFont("helvetica", "normal");
+  doc.setTextColor(40, 50, 70);
+  const msg = doc.splitTextToSize(d.message || "(aucun message)", W - M * 2);
+  doc.text(msg, M, y);
+  y += msg.length * 14 + 20;
+
+  // Footer
+  const fy = doc.internal.pageSize.getHeight() - 60;
+  doc.setDrawColor(34, 160, 90);
+  doc.setLineWidth(2);
+  doc.line(M, fy, W - M, fy);
+  doc.setFontSize(9);
+  doc.setTextColor(90, 100, 120);
+  doc.text("RESTO TRUCKS - N 41 Bloc PAM, 1er etage, Ouled Mrah, Ben Ahmed, Maroc", M, fy + 16);
+  doc.text("Tel : 06 61 30 99 31  -  Email : restotrucks@gmail.com  -  restotrucks.ma", M, fy + 30);
+
+  doc.save(`devis-resto-trucks-${d.reference}.pdf`);
+}
+
 
 export const Route = createFileRoute("/devis")({
   head: () => ({
@@ -24,22 +131,39 @@ const prestations = [
 
 function Devis() {
   const [sent, setSent] = useState(false);
+  const [devisData, setDevisData] = useState<DevisData | null>(null);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    const body = `Bonjour,%0A%0ANouvelle demande de devis :%0A
-Entreprise: ${form.get("entreprise")}%0A
-Responsable: ${form.get("responsable")}%0A
-Téléphone: ${form.get("telephone")}%0A
-Email: ${form.get("email")}%0A
-Ville: ${form.get("ville")}%0A
-Repas/jour: ${form.get("repas")}%0A
-Prestation: ${form.get("prestation")}%0A
-Message: ${form.get("message")}`;
-    window.location.href = `mailto:restotrucks@gmail.com?subject=Demande de devis&body=${body}`;
+    const data: DevisData = {
+      entreprise: String(form.get("entreprise") || ""),
+      responsable: String(form.get("responsable") || ""),
+      telephone: String(form.get("telephone") || ""),
+      email: String(form.get("email") || ""),
+      ville: String(form.get("ville") || ""),
+      repas: String(form.get("repas") || ""),
+      prestation: String(form.get("prestation") || ""),
+      message: String(form.get("message") || ""),
+      reference: `RT-${Date.now().toString(36).toUpperCase()}`,
+      date: new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" }),
+    };
+    const body = `Bonjour,%0A%0ANouvelle demande de devis (Ref: ${data.reference}):%0A
+Entreprise: ${data.entreprise}%0A
+Responsable: ${data.responsable}%0A
+Téléphone: ${data.telephone}%0A
+Email: ${data.email}%0A
+Ville: ${data.ville}%0A
+Repas/jour: ${data.repas}%0A
+Prestation: ${data.prestation}%0A
+Message: ${data.message}`;
+    window.location.href = `mailto:restotrucks@gmail.com?subject=Demande de devis ${data.reference}&body=${body}`;
+    setDevisData(data);
     setSent(true);
+    // Auto-download PDF
+    setTimeout(() => generatePdf(data), 300);
   }
+
 
   return (
     <Layout>
@@ -58,6 +182,19 @@ Message: ${form.get("message")}`;
               <CheckCircle2 className="h-14 w-14 text-green mx-auto" />
               <h2 className="mt-4 font-display text-2xl font-bold text-navy">Merci pour votre demande !</h2>
               <p className="mt-2 text-muted-foreground">Votre email est en cours d'envoi. Nous reviendrons vers vous sous 48h.</p>
+              {devisData && (
+                <>
+                  <p className="mt-4 text-sm text-navy font-semibold">Référence : {devisData.reference}</p>
+                  <button
+                    onClick={() => generatePdf(devisData)}
+                    className="mt-6 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md text-white font-semibold shadow-soft hover:opacity-95 transition"
+                    style={{ background: "var(--gradient-accent)" }}
+                  >
+                    <Download className="h-5 w-5" /> Télécharger le récapitulatif PDF
+                  </button>
+                  <p className="mt-3 text-xs text-muted-foreground">Le PDF a été téléchargé automatiquement. Cliquez ci-dessus pour le retélécharger.</p>
+                </>
+              )}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="p-6 md:p-10 rounded-3xl bg-white border border-border shadow-elegant grid gap-5 md:grid-cols-2">
