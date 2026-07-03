@@ -117,9 +117,9 @@ export const Route = createFileRoute("/devis")({
       { name: "description", content: "Demandez votre devis gratuit pour vos besoins en restauration collective au Maroc. Réponse sous 48h." },
       { property: "og:title", content: "Demande de devis — RESTO TRUCKS" },
       { property: "og:description", content: "Devis gratuit en restauration collective : cantines, entreprises, chantiers." },
-      { property: "og:url", content: "/devis" },
+      { property: "og:url", content: "https://restotrucks.ma/devis" },
     ],
-    links: [{ rel: "canonical", href: "/devis" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/devis" }],
   }),
   component: Devis,
 });

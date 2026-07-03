@@ -13,9 +13,9 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Spécialiste de la restauration collective au Maroc : cantines scolaires, internats, sites industriels, bases-vie et marchés publics. Demandez votre devis." },
       { property: "og:title", content: "RESTO TRUCKS — Restauration collective au Maroc" },
       { property: "og:description", content: "Plus de 10 ans d'excellence au service de la restauration collective au Maroc." },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://restotrucks.ma/" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/" }],
   }),
   component: Index,
 });

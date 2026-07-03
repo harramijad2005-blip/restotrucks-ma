@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://restotrucks-ma.lovable.app/sitemap.xml
+Sitemap: https://restotrucks.ma/sitemap.xml

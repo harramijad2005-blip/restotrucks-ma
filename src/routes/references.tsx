@@ -9,9 +9,9 @@ export const Route = createFileRoute("/references")({
       { name: "description", content: "Découvrez les clients qui nous font confiance : Koutoubia, Qualavi et de nombreux organismes publics au Maroc." },
       { property: "og:title", content: "Nos références — RESTO TRUCKS" },
       { property: "og:description", content: "Koutoubia, Qualavi et organismes publics font confiance à RESTO TRUCKS." },
-      { property: "og:url", content: "/references" },
+      { property: "og:url", content: "https://restotrucks.ma/references" },
     ],
-    links: [{ rel: "canonical", href: "/references" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/references" }],
   }),
   component: References,
 });

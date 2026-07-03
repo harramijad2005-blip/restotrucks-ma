@@ -9,9 +9,9 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Contactez RESTO TRUCKS : 06 61 30 99 31, restotrucks@gmail.com. N°41 Bloc PAM, Ouled Mrah, Ben Ahmed, Maroc." },
       { property: "og:title", content: "Contactez RESTO TRUCKS" },
       { property: "og:description", content: "Téléphone, WhatsApp, email et adresse de RESTO TRUCKS." },
-      { property: "og:url", content: "/contact" },
+      { property: "og:url", content: "https://restotrucks.ma/contact" },
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/contact" }],
   }),
   component: Contact,
 });
