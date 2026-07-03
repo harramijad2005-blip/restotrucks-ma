@@ -9,9 +9,9 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Cantines scolaires, internats, sites industriels, bases-vie, chantiers, marchés publics, restauration d'entreprise. Nos services partout au Maroc." },
       { property: "og:title", content: "Nos services de restauration collective" },
       { property: "og:description", content: "Une offre complète : cantines, entreprises, chantiers, marchés publics." },
-      { property: "og:url", content: "/services" },
+      { property: "og:url", content: "https://restotrucks.ma/services" },
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/services" }],
   }),
   component: Services,
 });

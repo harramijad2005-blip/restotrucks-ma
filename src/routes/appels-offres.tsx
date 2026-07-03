@@ -9,9 +9,9 @@ export const Route = createFileRoute("/appels-offres")({
       { name: "description", content: "Spécialiste des marchés publics au Maroc. Nous répondons aux appels d'offres de restauration collective avec rigueur administrative, financière et opérationnelle." },
       { property: "og:title", content: "Appels d'offres & Marchés publics" },
       { property: "og:description", content: "Réponse aux appels d'offres publics de restauration collective au Maroc." },
-      { property: "og:url", content: "/appels-offres" },
+      { property: "og:url", content: "https://restotrucks.ma/appels-offres" },
     ],
-    links: [{ rel: "canonical", href: "/appels-offres" }],
+    links: [{ rel: "canonical", href: "https://restotrucks.ma/appels-offres" }],
   }),
   component: Marches,
 });
