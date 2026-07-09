@@ -18,7 +18,7 @@ type DevisData = {
   date: string;
 };
 
-function generatePdf(d: DevisData) {
+async function generatePdf(d: DevisData) {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const W = doc.internal.pageSize.getWidth();
   const M = 48;
