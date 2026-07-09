@@ -3,6 +3,7 @@ import { Layout } from "@/components/Layout";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Send, MessageCircle, Download } from "lucide-react";
 import jsPDF from "jspdf";
+import QRCode from "qrcode";
 
 type DevisData = {
   entreprise: string;
