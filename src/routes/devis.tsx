@@ -107,6 +107,23 @@ async function generatePdf(d: DevisData) {
   doc.text("RESTO TRUCKS - N 41 Bloc PAM, 1er etage, Ouled Mrah, Ben Ahmed, Maroc", M, fy + 16);
   doc.text("Tel : 06 61 30 99 31  -  Email : restotrucks@gmail.com  -  restotrucks.ma", M, fy + 30);
 
+  // QR code bottom-left linking to website
+  try {
+    const qrDataUrl = await QRCode.toDataURL("https://restotrucks.ma", {
+      margin: 0,
+      width: 200,
+      color: { dark: "#0F2040", light: "#FFFFFF" },
+    });
+    const qrSize = 60;
+    const qrY = doc.internal.pageSize.getHeight() - qrSize - 8;
+    doc.addImage(qrDataUrl, "PNG", 8, qrY, qrSize, qrSize);
+    doc.setFontSize(7);
+    doc.setTextColor(120, 130, 150);
+    doc.text("Scannez-moi", 8 + qrSize / 2, qrY + qrSize + 6, { align: "center" });
+  } catch {
+    // ignore QR errors
+  }
+
   doc.save(`devis-resto-trucks-${d.reference}.pdf`);
 }
 
