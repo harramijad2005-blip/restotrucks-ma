@@ -12,6 +12,40 @@ export const Route = createFileRoute("/contact")({
       { property: "og:url", content: "https://restotrucks.ma/contact" },
     ],
     links: [{ rel: "canonical", href: "https://restotrucks.ma/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          name: "RESTO TRUCKS",
+          description: "RESTO TRUCKS — Restauration collective au Maroc : cantines scolaires, sites industriels, bases-vie, marchés publics.",
+          url: "https://restotrucks.ma",
+          telephone: "+212661309931",
+          email: "restotrucks@gmail.com",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "N°41 Bloc PAM 1er Étage, Ouled Mrah",
+            addressLocality: "Ben Ahmed",
+            addressCountry: "MA",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: "33.13",
+            longitude: "-7.20",
+          },
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "08:00",
+            closes: "18:00",
+          },
+          areaServed: "Maroc",
+          priceRange: "€€",
+          image: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9201cae-16df-4e04-8e6d-91500ce03196",
+        }),
+      },
+    ],
   }),
   component: Contact,
 });
