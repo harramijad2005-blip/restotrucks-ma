@@ -82,27 +82,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "RESTO TRUCKS",
-          description: "Restauration collective au Maroc : cantines scolaires, sites industriels, bases-vie, marchés publics.",
-          telephone: "+212661309931",
-          email: "restotrucks@gmail.com",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "N°41 Bloc PAM 1er Étage, Ouled Mrah",
-            addressLocality: "Ben Ahmed",
-            addressCountry: "MA",
-          },
-          areaServed: "Morocco",
-          slogan: "Plus de 10 ans d'excellence au service de la restauration collective au Maroc",
-        }),
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
