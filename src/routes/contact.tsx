@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Layout } from "@/components/Layout";
-import { Phone, Mail, MapPin, MessageCircle, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, MessageCircle, Clock, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -66,6 +66,16 @@ function Contact() {
               style={{ border: 0 }}
             />
           </div>
+          <a
+            href="https://www.google.com/maps/dir/?api=1&destination=N%C2%B041+Bloc+PAM+1er+%C3%89tage%2C+Ouled+Mrah%2C+Ben+Ahmed%2C+Maroc"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white font-semibold shadow-soft hover:shadow-elegant transition"
+            style={{ background: "var(--gradient-accent)" }}
+          >
+            <ExternalLink className="h-5 w-5" />
+            Ouvrir l’itinéraire sur Google Maps
+          </a>
         </div>
       </section>
     </Layout>
