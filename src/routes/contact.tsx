@@ -59,7 +59,7 @@ function Contact() {
           <div className="rounded-3xl overflow-hidden shadow-elegant border border-border">
             <iframe
               title="Localisation RESTO TRUCKS"
-              src="https://www.google.com/maps?q=Ben+Ahmed+Morocco&output=embed"
+              src="https://www.google.com/maps?q=N%C2%B041+Bloc+PAM+1er+%C3%89tage%2C+Ouled+Mrah%2C+Ben+Ahmed%2C+Maroc&output=embed"
               width="100%"
               height="420"
               loading="lazy"
