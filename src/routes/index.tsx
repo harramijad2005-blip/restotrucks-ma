@@ -15,7 +15,10 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "Plus de 10 ans d'excellence au service de la restauration collective au Maroc." },
       { property: "og:url", content: "https://restotrucks.ma/" },
     ],
-    links: [{ rel: "canonical", href: "https://restotrucks.ma/" }],
+    links: [
+  { rel: "icon", type: "image/png", href: "/favicon.png" },
+  { rel: "canonical", href: "https://restotrucks.ma/" },
+],
   }),
   component: Index,
 });
